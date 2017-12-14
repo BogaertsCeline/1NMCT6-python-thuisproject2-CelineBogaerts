@@ -1,4 +1,5 @@
 from Studentenhuis import Studentenhuis
+from Adres import Adres
 import requests
 
 #inlezen jason bestand
@@ -22,10 +23,12 @@ def inlezen_bestand():
         busnr = element["Busnr."]
         gemeente=element["GEMEENTE"]
         aant_kamer=element["aantal kamers"]
-        kad_afd=element["KAD.AFD"]
-        kad_sectie=element["KAD.SECTIE"]
-        kad_nr=element["KAD.NR"]
-        studentenhuis = Studentenhuis(adres, huisnr, bisnr, busnr, gemeente, aant_kamer, kad_afd, kad_sectie, kad_nr)
+        adres_klas=Adres(adres,huisnr,bisnr,busnr,gemeente)
+        studentenhuis = Studentenhuis(aant_kamer, adres_klas)
+        #print(studentenhuis)
+        #resultaat.append(studentenhuis)
+        #adres=Adres(adres,huisnr,bisnr,busnr,gemeente)
+        #print(adres)
         resultaat.append(studentenhuis.__str__())
      except Exception as ex:
         print("Foutmelding: " + str(ex))

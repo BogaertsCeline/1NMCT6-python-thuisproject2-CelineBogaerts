@@ -13,7 +13,7 @@ class Adres:
         self.gemeente = par_gemeente
 
     def __str__(self):
-
+        return "straat: {0}, huisnr: {1}, gemeente: {2}".format(self.straat, self.huisnr, self.gemeente)
     # Straat
     @property
     def straat(self):

@@ -1,23 +1,22 @@
+from Student import Student
 from Adres import Adres
+
+
 class Studentenhuis:
-    def __init__(self, par_adres, par_huisnr,par_bisnr, par_busnr, par_gemeente, par_aant_kamer, par_kad_afd ="", par_kad_sectie= "", par_kad_nr=""):
-
+    def __init__(self, par_aant_kamer,
+                 par_adres=Adres("adres", "huisnr", "bin", "bus", "gemeente"),par_student=[]):
         self.__aant_kamer = 0
-        self.__kad_afd = 0
-        self.__kad_sectie = None
-        self.__kad_nr = None
+        self.__adres = None
+        self.__student=None
 
-
-        self.aant_kamer=par_aant_kamer
-        self.kad_afd=par_kad_afd
-        self.kad_sectie=par_kad_sectie
-        self.kad_nr=par_kad_nr
+        self.aant_kamer = par_aant_kamer
+        self.adres = par_adres
+        self.studenten=par_student
 
     def __str__(self):
-        return "{0} {1} {2} {3}".format(self.adres, self.huisnr, self.gemeente, self.aant_kamer)
+        return "Kamers: {0}, {1}".format(self.__aant_kamer, self.__adres)
 
-
-    #Aantal kamers
+    # Aantal kamers
     @property
     def aant_kamers(self):
         return self.__aant_kamer
@@ -25,37 +24,33 @@ class Studentenhuis:
     @aant_kamers.setter
     def aant_kamers(self, value):
         try:
-            if str(value)!="":
-                self.__aant_kamer=int(value)
+            if str(value) != "":
+                self.__aant_kamer = int(value)
             else:
                 raise ValueError
-        except (ValueError,TypeError):
-            self.__aant_kamer="foutief"
+        except (ValueError, TypeError):
+            self.__aant_kamer = "foutief"
             print("Foutmelding: Geen geldige aantal kamers")
 
-    #Kad_afd
+
     @property
-    def kad_afd(self):
-        return self.__kad_afd
+    def adres(self):
+        return self.__adres
 
-    @kad_afd.setter
-    def kad_afd(self, value):
-        self.__kad_afd=value
+    @adres.setter
+    def adres(self, value):
+        if isinstance(value, Adres):
+            self.__adres = value
+        else:
+            raise ValueError("Geen object van de klasse Adres")
 
-    #Kad_sectie
     @property
-    def kad_sectie(self):
-        return self.__kad_sectie
+    def student(self):
+        return  self.__student
 
-    @kad_sectie.setter
-    def kad_sectie(self, value):
-        self.__kad_sectie=value
-
-    #Kad_nr
-    @property
-    def kad_nr(self):
-        return self.__kad_nr
-
-    @kad_nr.setter
-    def kad_nr(self, value):
-        self.__kad_nr = value
+    @student.setter
+    def student(self, value):
+        if isinstance(value,Student):
+            self.__student=value
+        else:
+            raise ValueError("Geen object van de klasse Student")
