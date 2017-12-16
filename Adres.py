@@ -79,3 +79,10 @@ class Adres:
         except ValueError:
             self.__gemeente = "foutief"
             print("Foutmelding: Geen geldige gemeente")
+
+    def __eq__(self, other):
+        #print("In Adres gelukt")
+        if self.straat==other:
+            return True
+        else:
+            return False

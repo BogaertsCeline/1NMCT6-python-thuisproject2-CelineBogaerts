@@ -1,37 +1,64 @@
+from Student import Student
 from Studentenhuis import Studentenhuis
-from Adres import Adres
-import requests
 
-#inlezen jason bestand
-def __download():
-    params={"format":"json","language":"nl"}
-    response=requests.get("https://data.kortrijk.be/studentenvoorzieningen/koten.json")
-    if response.status_code==200:
-        response_jason=response.json()
-        return response_jason
-    else:
-        return None
+#Inlezen bestand
+ingelezen=Studentenhuis.inlezen_bestand()
 
-def inlezen_bestand():
- resultaat = []
- list_json = __download()
- for element in list_json:
-     try:
-        adres= element["ADRES"]
-        huisnr = element["HUISNR"]
-        bisnr = element["Bisnr."]
-        busnr = element["Busnr."]
-        gemeente=element["GEMEENTE"]
-        aant_kamer=element["aantal kamers"]
-        adres_klas=Adres(adres,huisnr,bisnr,busnr,gemeente)
-        studentenhuis = Studentenhuis(aant_kamer, adres_klas)
-        #print(studentenhuis)
-        #resultaat.append(studentenhuis)
-        #adres=Adres(adres,huisnr,bisnr,busnr,gemeente)
-        #print(adres)
-        resultaat.append(studentenhuis.__str__())
-     except Exception as ex:
-        print("Foutmelding: " + str(ex))
- return resultaat
 
-print( inlezen_bestand())
+def lijst_studentenhuizen():
+    #Print lijst Studentenhuizen
+    lijst=Studentenhuis.geef_lijst_studentenhuizen()
+
+    print("\n Dit zijn alle studentenhuizen:")
+    for element in lijst:
+        print(element)
+
+#lijst_studentenhuizen()
+
+def studentenhuizen_zoeken():
+    straat="Sint-Denijsestraat"
+    lijst=Studentenhuis.zoek_studentenhuizen_in_straat(straat)
+
+    print("\n Dit zijn alle studentenhuizen met als straat {0}:".format(straat))
+    for element in lijst:
+        print(element)
+
+#studentenhuizen_zoeken()
+
+def aantal_kamers():
+    mini=10
+    maxi=50
+    lijst=Studentenhuis.zoek_studentenhuizen_op_aantal_kamers(mini,maxi)
+
+    print("\nDit zijn alle studentenhuizen met kamers tussen {0} en {1}".format(mini,maxi))
+    for element in lijst:
+        print(element)
+
+#aantal_kamers()
+
+def registratie_student():
+    voornaam="Celine"
+    naam="Bogaerts"
+    straat="Sint-Denijsestraat"
+    student1=Student(voornaam,naam)
+    registratie=Studentenhuis.zoek_studentenhuis_student(straat,student1)
+
+    print("\nIn die studentenhuis zijt de persoon nu:")
+    print(registratie)
+
+#registratie_student()
+
+def random_studentenhuis():
+    random=Studentenhuis.geef_random_studentenhuis()
+
+    print("\nDit is een random studentenhuis:")
+    print(random)
+
+#random_studentenhuis()
+
+def aantal_studentenhuizen():
+    aantal=Studentenhuis.aantal_studentenhuizen_in_kortijk()
+
+    print("\nDit is het aantal studentenhuizen in Kortijk: {0}".format(aantal))
+
+#aantal_studentenhuizen()

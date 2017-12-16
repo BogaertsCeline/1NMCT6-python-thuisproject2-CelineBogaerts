@@ -7,14 +7,16 @@ class Student:
         self.naam=par_naam
 
     def __str__(self):
+        return "Voornaam: {0}, achternaam : {1}".format(self.__voornaam, self.__naam)
 
     @property
-    def voonaam(self):
+    def voornaam(self):
         return self.__voornaam
 
-    @voonaam.setter
-    def voonaam(self, value):
+    @voornaam.setter
+    def voornaam(self, value):
         try:
+
             if value!="":
                 self.__voornaam=value
             else:
